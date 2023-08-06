@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User 
 
 # Form de medico
 class MedicoForm(forms.Form):
@@ -25,3 +27,27 @@ class HistorialForm(forms.Form):
     fecha_nacimiento = forms.DateField()
     contacto_emergencia = forms.IntegerField()  
 
+class RegistroUsuariosForm(UserCreationForm):
+    email = forms.EmailField(label="Email Usuario")
+    password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+        help_texts = {k:"" for k in fields}    
+
+class UserEditForm(UserCreationForm):
+    first_name = forms.CharField(label="Nombre/s", max_length=40, required=True)
+    last_name = forms.CharField(label="Apellido/s", max_length=40, required=True) 
+    email = forms.EmailField(label="Modifique su Email", max_length=50, required=False) 
+    password1 = forms.CharField(label="Ingresar contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Ingrese nuevamente su contraseña", widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = [ 'email', 'first_name', 'last_name', 'password1', 'password2']
+        help_texts = {k:"" for k in fields}
+
+class AvatarFormulario(forms.Form):
+    imagen = forms.ImageField(required=True)

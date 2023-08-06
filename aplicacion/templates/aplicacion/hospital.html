@@ -13,21 +13,30 @@
 
 {% block contenido %}
 <table class="table">
+
     <thead>
+
         <tr>
+
             <th>ID</th>
             <th>Nombre</th>
             <th>Direccion</th>
+
         </tr>
+        
     </thead>
     <tbody>
-    {% for hospital in hospital %}  
+
+    {% for hospital in hospital %} 
+
     <tr>
         <td>{{ hospital.id }}</td>
         <td>{{ hospital.nombre }}</td>
         <td>{{ hospital.direccion }}</td>
     </tr>
+    
     {% endfor %} 
+
     </tbody>
 </table>
 {% endblock contenido %}
