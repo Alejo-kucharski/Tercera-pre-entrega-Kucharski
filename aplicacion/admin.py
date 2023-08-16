@@ -9,4 +9,6 @@ admin.site.register(Medico)
 admin.site.register(Paciente)
 admin.site.register(Hospital)
 admin.site.register(HistorialClinico)
+admin.site.register(Avatar)
+
 

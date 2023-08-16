@@ -91,7 +91,7 @@ def pacienteForm1(request):
     else:
         miForm = PacienteForm()
         
-    return render(request, "aplicacion/pacienteForm1.html", {"form":miForm}) 
+    return render(request, "aplicacion/paciente_Form.html", {"form":miForm}) 
 
 # Funcion formulario de hospital
 @login_required
@@ -197,6 +197,7 @@ class PacienteCreate(LoginRequiredMixin, CreateView):
     model = Paciente
     fields = ['nombre', 'apellido', 'email']
     success_url = reverse_lazy('pacientes')
+    template_name = "aplicacion/create_paciente.html"
 
 class PacienteDetail(LoginRequiredMixin, DetailView):
     model = Paciente
@@ -205,6 +206,7 @@ class PacienteUpdate(LoginRequiredMixin, UpdateView):
     model = Paciente
     fields = ['nombre', 'apellido', 'email']
     success_url = reverse_lazy('pacientes')
+    template_name = "aplicacion/update_paciente.html"
 
 class PacienteDelete(LoginRequiredMixin, DeleteView):
     model = Paciente
@@ -222,6 +224,14 @@ def login_request(request):
             user = authenticate(username=usuario, password=clave)
             if user is not None:
                 login(request, user)
+
+                try:
+                    avatar = Avatar.objects.get(user=request.user.id).imagen.url
+                except:
+                    avatar = '/media/avatares/default.png'
+                finally:
+                    request.session['avatar'] = avatar
+
                 return render(request, "aplicacion/base.html", {"mensaje": f"Bienvenido {usuario}"})
             else:
                 return render(request, "aplicacion/login.html", {'form': miForm, "mensaje": f"Ingresaste datos incorrectos"})

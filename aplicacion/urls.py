@@ -8,7 +8,7 @@ urlpatterns = [
 
     # Funciones de los models
     path('medicos/', medicos, name="medicos"),
-    path('pacientes/', pacientes, name="pacientes"),
+    
     path('hostorialClinico', historialClinico, name="historial_clinico"),
     path('hospital/', hospital, name="hospital"),
 
